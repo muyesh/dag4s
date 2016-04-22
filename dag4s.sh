@@ -1,6 +1,6 @@
 #!/bin/bash
-BASE_PATH=$1
-COUNTRY=$2 #China
+BASE_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+COUNTRY=$1 #China
 DATA_PATH=$BASE_PATH/data
 TMP_PATH=$BASE_PATH/tmp
 
