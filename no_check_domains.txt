@@ -1,0 +1,8 @@
+\.cn$
+.baidu.com
+.co.jp
+google.com
+facebook.com
+twitter.com
+tumblr.com
+twimg.com
