@@ -100,13 +100,18 @@ $BASE_PATH/optimize.sh $COUNTRY
 
 # gen acl
 cat /dev/null > $ACL_LIST
-cnt=0
-cat $DOMESTIC_DOMAINS |while read domain
+
+# top domains
+cat $DOMESTIC_DOMAINS \
+| grep -e'^[^\.]*\.[^\.]*$' \
+| while read line
 do
-    cnt=$(( $cnt + 1 ))
-    echo "acl c$cnt dstdomain $domain" >> $ACL_LIST
-    echo "always_direct allow c$cnt">> $ACL_LIST
-done
+    echo '.'$line
+done > $ACL_LIST
+
+# IPs, sub domains
+cat $DOMESTIC_DOMAINS \
+| grep -e '^.*\.[^\.]*\.[^\.]*$' >> $ACL_LIST
 
 # gen conf
 cat /dev/null > $SQUID_CONF_RESULT
@@ -114,11 +119,12 @@ cat $SQUID_CONF_TEMPLATE |while read line
 do
     if [ "$line" = '##ACL##' ]
     then
-        cat $ACL_LIST >> $SQUID_CONF_RESULT
+        echo "acl domesticList dstdomain '${ACL_LIST}'"
+        echo "always_direct allow domesticList"
     else
-        echo $line >> $SQUID_CONF_RESULT
+        echo $line
     fi
-done
+done > $SQUID_CONF_RESULT
 
 # echo result file
 echo $SQUID_CONF_RESULT
