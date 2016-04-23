@@ -95,6 +95,9 @@ cat $FOREIGN_DOMAINS > $TMP1
 cat $FRESULT >> $TMP1
 cat $TMP1 |sort -u > $FOREIGN_DOMAINS
 
+# Optimize
+$BASE_PATH/optimize.sh $COUNTRY
+
 # gen acl
 cat /dev/null > $ACL_LIST
 cnt=0
@@ -119,4 +122,3 @@ done
 
 # echo result file
 echo $SQUID_CONF_RESULT
-
