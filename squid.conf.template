@@ -24,6 +24,10 @@ acl defaultcn1       dstdomain .cn
 acl defaultcn2       dstdomain .baidu.com
 always_direct allow defaultcn1
 always_direct allow defaultcn2
+acl tudou1 dst 124.14.0.0/16
+acl tudou2 dst 124.15.0.0/16
+always_direct allow tudou1
+always_direct allow tudou2
 
 # generated acl start
 ##ACL##
