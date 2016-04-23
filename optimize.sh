@@ -41,16 +41,10 @@ touch $TMP2
 cat /dev/null > $TMP2
 cat $DOMESTIC_DOMAINS |while read line
 do
+    topdomain=$(echo $line|sed 's/.*\.\([^\.]*\.[^\.]*$\)/\1/g')
     cnt=0
-    for topdomain in $(cat $TMP1)
-    do
-        cnt=$(( $cnt + $(echo $line|grep -e "^${topdomain}$"|wc -l) ))
-        cnt=$(( $cnt + $(echo $line|grep -e "\.${topdomain}$"|wc -l) ))
-        if [ $cnt -ne 0 ]
-        then
-            break
-        fi
-    done
+    cnt=$(( $cnt + $(cat $TMP1|grep -e "^${topdomain}$"|wc -l) ))
+    cnt=$(( $cnt + $(cat $TMP1|grep -e "\.${topdomain}$"|wc -l) ))
     if [ $cnt -eq 0 ]
     then
         echo $line >> $TMP2
