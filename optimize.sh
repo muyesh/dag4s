@@ -10,26 +10,16 @@ if [ ! -e $DOMESTIC_DOMAINS ]
 then
     exit 1
 fi
-#ACL_LIST=$DATA_PATH/acl.txt
-#SQUID_CONF_TEMPLATE=$BASE_PATH/squid.conf.template
-#SQUID_CONF_RESULT=$DATA_PATH/squid.conf.result
-
-# SQUID FILES
-#SQUID_LOG=/var/log/squid3/access.log
-#SQUID_CONF=/etc/squid3/squid.conf
 
 # TMP FILES
 TMP1=$TMP_PATH/optimize.tmp1
 TMP2=$TMP_PATH/optimize.tmp2
-#DRESULT=$TMP_PATH/domestic_domains.tmp
-#FRESULT=$TMP_PATH/foreign_domains.tmp
 
 # touch
 touch $TMP1
 cat /dev/null > $TMP1
 touch $TMP2
 cat /dev/null > $TMP2
-
 
 # make 2 words domains
 cat $DOMESTIC_DOMAINS \
@@ -74,5 +64,3 @@ cp $DOMESTIC_DOMAINS ${DOMESTIC_DOMAINS}.backup
 
 cat $TMP1 > $DOMESTIC_DOMAINS
 cat $TMP2 >> $DOMESTIC_DOMAINS
-
-
